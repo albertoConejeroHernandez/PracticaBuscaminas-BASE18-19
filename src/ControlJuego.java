@@ -43,8 +43,8 @@ public class ControlJuego {
 		int rd2;
 		int minasColocadas = 0;
 		while (minasColocadas < 20) {
-			 rd1 = new Random().nextInt(11);
-			 rd2 = new Random().nextInt(11);
+			 rd1 = new Random().nextInt(10);
+			 rd2 = new Random().nextInt(10);
 					if (tablero[rd1][rd2] != MINA) {
 						tablero[rd1][rd2] = MINA;
 						minasColocadas++;
@@ -77,16 +77,16 @@ public class ControlJuego {
 	 **/
 	private int calculoMinasAdjuntas(int i, int j) {
 		int totalMinas=0;
-		
-		if (i == 0 && j == 0) {
-			for (int k = i; k < tablero.length; k++) {
-				for (int k2 = j; k2 < tablero.length; k2++) {
-					if (tablero[k][k2]==MINA) {
+		for (int k = -1; k <  2; k++) {
+			for (int k2 = - 1; k2 < 2; k2++) {
+				if (k+i >=0 && k+i < LADO_TABLERO && k2+j >= 0 && k2+j < LADO_TABLERO) {
+					if (tablero[k+i][k2+j] == MINA) {
 						totalMinas++;
 					}
 				}
 			}
 		}
+		
 		
 		
 	return totalMinas;
@@ -104,7 +104,13 @@ public class ControlJuego {
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j) {
-
+		if (tablero[i][j]!=MINA) {
+			puntuacion++;
+			return true;
+			
+		}else {
+			return false;
+		}
 	}
 
 	/**
@@ -115,6 +121,12 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
+		if (puntuacion == (LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES)) {
+			return true;
+		}else {
+			return false;
+			
+		}
 	}
 
 	/**
@@ -144,6 +156,7 @@ public class ControlJuego {
 	 * @return Un entero que representa el número de minas alrededor de la celda
 	 */
 	public int getMinasAlrededor(int i, int j) {
+		return tablero[i][j];
 	}
 
 	/**
@@ -152,6 +165,7 @@ public class ControlJuego {
 	 * @return Un entero con la puntuación actual
 	 */
 	public int getPuntuacion() {
+		return puntuacion;
 	}
 
 }
