@@ -4,14 +4,24 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.acl.Group;
+
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 public class VentanaPrincipal {
 
@@ -21,7 +31,8 @@ public class VentanaPrincipal {
 	JPanel panelEmpezar;
 	JPanel panelPuntuacion;
 	JPanel panelJuego;
-
+	JPanel temas;
+	JButton botonCambiaTemas;
 	// Todos los botones se meten en un panel independiente.
 	// Hacemos esto para que podamos cambiar después los componentes por otros
 	JPanel[][] panelesJuego;
@@ -52,7 +63,10 @@ public class VentanaPrincipal {
 		ventana.setLayout(new GridBagLayout());
 
 		// Inicializamos componentes
-		panelImagen = new JPanel();
+		temas = new JPanel(new GridBagLayout());
+		botonCambiaTemas=new JButton("Temas");
+		panelImagen = new JPanel(new GridLayout(1, 1));
+		panelImagen.add(botonCambiaTemas);
 		panelEmpezar = new JPanel();
 		panelEmpezar.setLayout(new GridLayout(1, 1));
 		panelPuntuacion = new JPanel();
@@ -70,7 +84,7 @@ public class VentanaPrincipal {
 		panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
 		panelPuntuacion.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		panelJuego.setBorder(BorderFactory.createTitledBorder("Juego"));
-
+		
 		// Colocamos los componentes:
 		// AZUL
 		GridBagConstraints settings = new GridBagConstraints();
@@ -130,7 +144,28 @@ public class VentanaPrincipal {
 		panelPuntuacion.add(pantallaPuntuacion);
 
 	}
-
+/**
+ * Metodo para elegir el tema y gama de colores que usamos para jugar
+ * 
+ */
+	public void cambiaTemas() {
+		ButtonGroup grupoTemas=new ButtonGroup();
+		JRadioButton dark = new  JRadioButton("Dark");
+		JRadioButton classic = new JRadioButton("Classic");
+		JRadioButton porDefecto = new  JRadioButton(text);
+		
+		grupoTemas.add(dark);
+		grupoTemas.add(classic);
+		grupoTemas.add(porDefecto);
+		
+		
+		temas.add();
+		if (botonCambiaTemas.isSelected()) {
+			JOptionPane.showMessageDialog(temas, "Elige el tema que deseas");
+		}
+	}
+	
+	
 	/**
 	 * Método que inicializa todos los lísteners que necesita inicialmente el
 	 * programa
