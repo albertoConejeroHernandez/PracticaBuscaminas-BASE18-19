@@ -14,11 +14,11 @@ import javax.swing.JFrame;
  */
 public class ActionBoton implements ActionListener {
 
-	JFrame ventana;
+	VentanaPrincipal ventana;
 	int i;
 	int j;
 
-	public ActionBoton(JFrame ventana, int i, int j) {
+	public ActionBoton(VentanaPrincipal ventana, int i, int j) {
 		this.ventana = ventana;
 		this.i = i;
 		this.j = j;
@@ -29,7 +29,20 @@ public class ActionBoton implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (ventana.juego.abrirCasilla(i, j)) {
+			ventana.mostrarNumMinasAlrededor(i, j);
+			ventana.refrescarPantalla();
+			ventana.actualizarPuntuacion();
 		
+		}else {
+			if (ventana.juego.esFinJuego() ==false) {
+			ventana.mostrarFinJuego(true);
+		}else {
+			ventana.mostrarFinJuego(false);
+		}
+		}
+		
+	
 	}
 
 }
