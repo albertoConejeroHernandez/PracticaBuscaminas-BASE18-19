@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,6 +24,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
+/**
+ * 
+ * @author AlbertoConejeroHernadez
+ * 
+ *
+ *
+ *
+ */
 public class VentanaPrincipal {
 
 	// La ventana principal, en este caso, guarda todos los componentes:
@@ -48,6 +57,13 @@ public class VentanaPrincipal {
 	// LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	ControlJuego juego;
 
+	// Temas
+	ButtonGroup grupoTemas;
+	JRadioButton dark;
+	JRadioButton classic;
+	JRadioButton porDefecto;
+	String tema = "porDefecto";
+
 	// Constructor, marca el tamaño y el cierre del frame
 	public VentanaPrincipal() {
 		ventana = new JFrame();
@@ -64,7 +80,7 @@ public class VentanaPrincipal {
 
 		// Inicializamos componentes
 		temas = new JPanel(new GridBagLayout());
-		botonCambiaTemas=new JButton("Temas");
+		botonCambiaTemas = new JButton("Temas");
 		panelImagen = new JPanel(new GridLayout(1, 1));
 		panelImagen.add(botonCambiaTemas);
 		panelEmpezar = new JPanel();
@@ -80,11 +96,11 @@ public class VentanaPrincipal {
 		pantallaPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Bordes y colores:
-		panelImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		panelImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
-		panelPuntuacion.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		panelPuntuacion.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		panelJuego.setBorder(BorderFactory.createTitledBorder("Juego"));
-		
+
 		// Colocamos los componentes:
 		// AZUL
 		GridBagConstraints settings = new GridBagConstraints();
@@ -119,6 +135,18 @@ public class VentanaPrincipal {
 		settings.gridwidth = 3;
 		settings.fill = GridBagConstraints.BOTH;
 		ventana.add(panelJuego, settings);
+		// Temas
+		grupoTemas = new ButtonGroup();
+		dark = new JRadioButton("Dark");
+		classic = new JRadioButton("Classic");
+		porDefecto = new JRadioButton("Tema por defecto");
+		grupoTemas.add(dark);
+		grupoTemas.add(classic);
+		grupoTemas.add(porDefecto);
+
+		temas.add(dark);
+		temas.add(classic);
+		temas.add(porDefecto);
 
 		// Paneles
 		panelesJuego = new JPanel[10][10];
@@ -129,43 +157,106 @@ public class VentanaPrincipal {
 				panelJuego.add(panelesJuego[i][j]);
 			}
 		}
-
 		// Botones
 		botonesJuego = new JButton[10][10];
-		for (int i = 0; i < botonesJuego.length; i++) {
-			for (int j = 0; j < botonesJuego[i].length; j++) {
-				botonesJuego[i][j] = new JButton("-");
-				panelesJuego[i][j].add(botonesJuego[i][j]);
+		
+
+		switch (tema) {
+		case "porDefecto":
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j] = new JButton("-");
+					panelesJuego[i][j].add(botonesJuego[i][j]);
+				}
 			}
+			break;
+		case "classic":
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j] = new JButton();
+					botonesJuego[i][j].setText("X");
+					botonesJuego[i][j].setForeground(Color.BLUE);
+					botonesJuego[i][j].setBackground(Color.GREEN);
+					panelesJuego[i][j].add(botonesJuego[i][j]);
+				}
+			}
+			panelEmpezar.setBackground(Color.BLUE);
+			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
+			break;
+		case "dark":
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j] = new JButton();
+					botonesJuego[i][j].setText("?");
+					botonesJuego[i][j].setForeground(Color.WHITE);
+					botonesJuego[i][j].setBackground(Color.BLACK);
+					panelesJuego[i][j].add(botonesJuego[i][j]);
+				}
+			}
+			panelEmpezar.setBackground(Color.BLACK);
+			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
+			break;
+
 		}
+		
+
+		
 
 		// BotónEmpezar:
 		panelEmpezar.add(botonEmpezar);
 		panelPuntuacion.add(pantallaPuntuacion);
 
 	}
-/**
- * Metodo para elegir el tema y gama de colores que usamos para jugar
- * 
- */
+
+	/**
+	 * Metodo para elegir el tema con el que deseas jugar la partida, es un radio
+	 * button que seleccionamos
+	 * 
+	 *
+	 */
 	public void cambiaTemas() {
-		ButtonGroup grupoTemas=new ButtonGroup();
-		JRadioButton dark = new  JRadioButton("Dark");
-		JRadioButton classic = new JRadioButton("Classic");
-		JRadioButton porDefecto = new  JRadioButton(text);
-		
-		grupoTemas.add(dark);
-		grupoTemas.add(classic);
-		grupoTemas.add(porDefecto);
-		
-		
-		temas.add();
-		if (botonCambiaTemas.isSelected()) {
-			JOptionPane.showMessageDialog(temas, "Elige el tema que deseas");
+		JOptionPane.showMessageDialog(null, temas);
+		if (dark.isSelected()) {
+			tema = "dark";
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j].setText("?");
+					botonesJuego[i][j].setForeground(Color.white);
+					botonesJuego[i][j].setBackground(Color.BLACK);
+
+				}
+			}
+			panelEmpezar.setBackground(Color.BLACK);
+			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
+		}
+		if (classic.isSelected()) {
+			tema="classic";
+			
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j].setText("X");
+					botonesJuego[i][j].setForeground(Color.BLUE);
+					botonesJuego[i][j].setBackground(Color.GREEN);
+
+				}
+			}
+			panelEmpezar.setBackground(Color.BLUE);
+			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
+		}
+		if (porDefecto.isSelected()) {
+			tema="porDefecto";
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j].setText("-");
+					botonesJuego[i][j].setBackground(null);
+					botonesJuego[i][j].setForeground(null);
+				}
+			}
+			panelEmpezar.setBackground(null);
+			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
 		}
 	}
-	
-	
+
 	/**
 	 * Método que inicializa todos los lísteners que necesita inicialmente el
 	 * programa
@@ -183,6 +274,11 @@ public class VentanaPrincipal {
 			ventana.remove(panelPuntuacion);
 			juego = new ControlJuego();
 			inicializar();
+			refrescarPantalla();
+		});
+
+		botonCambiaTemas.addActionListener((e) -> {
+			cambiaTemas();
 			refrescarPantalla();
 		});
 	}
@@ -226,14 +322,14 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 		if (porExplosion) {
-			JOptionPane.showMessageDialog(ventana, "Has perdido: "+ juego.getPuntuacion());
+			JOptionPane.showMessageDialog(ventana, "Has perdido: " + juego.getPuntuacion());
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego.length; j++) {
 					botonesJuego[i][j].setEnabled(false);
 				}
 			}
-		}else {
-			JOptionPane.showMessageDialog(ventana, "Has ganado: "+ juego.getPuntuacion());
+		} else {
+			JOptionPane.showMessageDialog(ventana, "Has ganado: " + juego.getPuntuacion());
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego.length; j++) {
 					botonesJuego[i][j].setEnabled(false);
