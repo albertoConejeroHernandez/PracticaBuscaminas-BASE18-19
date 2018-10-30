@@ -8,6 +8,9 @@ import java.util.Random;
  * la partida
  * 
  * @author albertoConejeroHernandez
+ * @version 1.0
+ * @since 1.0
+ * @see VentanaPrincipal
  *
  */
 public class ControlJuego {

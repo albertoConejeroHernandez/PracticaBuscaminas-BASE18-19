@@ -27,12 +27,22 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 /**
+ * En esta clase tratamos los puntos iniciales de la ventana de juego, en la que controlamos los botones
+ * y funcionalidad de la ventana, editamos los campos que queremos para adpatarla
+ * y ver el juego como queremos.
  * @author AlbertoConejeroHernandez
- * 
- * @version 1.0 {@link #inicializar()}
- * @see #cambiaTemas()
- * @since Java 8
- * 
+ * {@link #inicializar()}
+ * <p>
+ * {@code
+ * 		ventana.setVisible(true);
+		inicializarComponentes();
+		inicializarListeners();
+ * }
+ *</p>
+ *@since 1.0
+ *@version 1.0
+ *@see ControlJuego
+ *
  */
 public class VentanaPrincipal {
 
