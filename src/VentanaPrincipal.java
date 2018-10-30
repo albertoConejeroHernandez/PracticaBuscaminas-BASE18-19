@@ -25,12 +25,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 /**
+ * @author AlbertoConejeroHernandez
  * 
- * @author AlbertoConejeroHernadez
+ * @version 1.0
+ * {@link #inicializar()}
+ * @see #cambiaTemas()
+ * @since Java 8
  * 
- *
- *
- *
  */
 public class VentanaPrincipal {
 
@@ -159,10 +160,16 @@ public class VentanaPrincipal {
 		}
 		// Botones
 		botonesJuego = new JButton[10][10];
-		
+		/**
+		 * En este apartado del codigo obligamos a que mantenga los colores que le hemos
+		 * puesto en el tema ya que al cambiar en el boton GO!(botonEmpezar) nos pone
+		 * los colores de inicio si no hacemos este switc/case.
+		 * 
+		 */
 
 		switch (tema) {
 		case "porDefecto":
+
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j] = new JButton("-");
@@ -171,6 +178,10 @@ public class VentanaPrincipal {
 			}
 			break;
 		case "classic":
+			panelJuego.setBackground(Color.BLUE);
+			panelPuntuacion.setBackground(Color.GREEN);
+			pantallaPuntuacion.setForeground(Color.BLUE);
+			pantallaPuntuacion.setBackground(Color.GREEN);
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j] = new JButton();
@@ -184,6 +195,10 @@ public class VentanaPrincipal {
 			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
 			break;
 		case "dark":
+			panelJuego.setBackground(Color.BLACK);
+			panelPuntuacion.setBackground(Color.BLACK);
+			pantallaPuntuacion.setForeground(Color.WHITE);
+			pantallaPuntuacion.setBackground(Color.BLACK);
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j] = new JButton();
@@ -198,9 +213,6 @@ public class VentanaPrincipal {
 			break;
 
 		}
-		
-
-		
 
 		// BotónEmpezar:
 		panelEmpezar.add(botonEmpezar);
@@ -211,13 +223,15 @@ public class VentanaPrincipal {
 	/**
 	 * Metodo para elegir el tema con el que deseas jugar la partida, es un radio
 	 * button que seleccionamos
-	 * 
-	 *
 	 */
 	public void cambiaTemas() {
 		JOptionPane.showMessageDialog(null, temas);
 		if (dark.isSelected()) {
 			tema = "dark";
+			panelJuego.setBackground(Color.BLACK);
+			panelPuntuacion.setBackground(Color.BLACK);
+			pantallaPuntuacion.setForeground(Color.WHITE);
+			pantallaPuntuacion.setBackground(Color.BLACK);
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j].setText("?");
@@ -230,8 +244,11 @@ public class VentanaPrincipal {
 			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
 		}
 		if (classic.isSelected()) {
-			tema="classic";
-			
+			tema = "classic";
+			panelJuego.setBackground(Color.BLUE);
+			panelPuntuacion.setBackground(Color.GREEN);
+			pantallaPuntuacion.setForeground(Color.BLUE);
+			pantallaPuntuacion.setBackground(Color.GREEN);
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j].setText("X");
@@ -244,7 +261,11 @@ public class VentanaPrincipal {
 			panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
 		}
 		if (porDefecto.isSelected()) {
-			tema="porDefecto";
+			tema = "porDefecto";
+			panelJuego.setBackground(null);
+			panelPuntuacion.setBackground(null);
+			pantallaPuntuacion.setForeground(null);
+			pantallaPuntuacion.setBackground(null);
 			for (int i = 0; i < botonesJuego.length; i++) {
 				for (int j = 0; j < botonesJuego[i].length; j++) {
 					botonesJuego[i][j].setText("-");
@@ -291,17 +312,15 @@ public class VentanaPrincipal {
 	 * correspondeciaColor): - 0 : negro - 1 : cyan - 2 : verde - 3 : naranja - 4 ó
 	 * más : rojo
 	 * 
-	 * @param i:
-	 *            posición vertical de la celda.
-	 * @param j:
-	 *            posición horizontal de la celda.
+	 * @param i: posición vertical de la celda.
+	 * @param j: posición horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i, int j) {
 		int numMinasAlrededor = juego.getMinasAlrededor(i, j);
 		JLabel numero = new JLabel();
 		panelesJuego[i][j].removeAll();
 		numero.setText(Integer.toString(numMinasAlrededor));
-		if (Integer.parseInt(numero.getText()) != -1) {
+		if (Integer.parseInt(numero.getText()) != juego.MINA) {
 			numero.setForeground(correspondenciaColores[numMinasAlrededor]);
 			numero.setHorizontalTextPosition(SwingConstants.CENTER);
 			numero.setHorizontalAlignment(SwingConstants.CENTER);
@@ -314,9 +333,9 @@ public class VentanaPrincipal {
 	/**
 	 * Muestra una ventana que indica el fin del juego
 	 * 
-	 * @param porExplosion
-	 *            : Un booleano que indica si es final del juego porque ha explotado
-	 *            una mina (true) o bien porque hemos desactivado todas (false)
+	 * @param porExplosion : Un booleano que indica si es final del juego porque ha
+	 *                     explotado una mina (true) o bien porque hemos desactivado
+	 *                     todas (false)
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el
 	 *       juego.
 	 */
