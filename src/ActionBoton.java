@@ -34,7 +34,7 @@ public class ActionBoton implements ActionListener {
 			ventana.mostrarNumMinasAlrededor(i, j);
 			ventana.refrescarPantalla();
 			ventana.actualizarPuntuacion();
-			explosionDeCasilla(i, j);
+			
 		} else {
 			if (ventana.juego.esFinJuego() == false) {
 				ventana.mostrarFinJuego(true);
@@ -45,30 +45,6 @@ public class ActionBoton implements ActionListener {
 
 	}
 
-	public void explosionDeCasilla(int i, int j) {
-		if (ventana.juego.getMinasAlrededor(i, j) == 0) {
-			for (int k = -1; k < 2; k++) {
-				for (int k2 = -1; k2 < 2; k2++) {
-					if (k + i >= 0 && k + i < ventana.juego.LADO_TABLERO && k2 + j >= 0
-							&& k2 + j < ventana.juego.LADO_TABLERO) {
-						if (ventana.juego.getMinasAlrededor(k + i, k2 + j) == 0) {
-							ventana.juego.abrirCasilla(k + i, k2 + j);
-							ventana.mostrarNumMinasAlrededor(k + i, k2 + j);
-							ventana.refrescarPantalla();
-							ventana.actualizarPuntuacion();
-						}
-						if (ventana.juego.abrirCasilla(i + 1, j + 1)) {
-							explosionDeCasilla(i + 1, j + 1);
-						} else {
-							explosionDeCasilla(i - 1, j - 1);
-						}
-					}
-
-				}
-			}
-
-			
-		}
-	}
+	
 
 }

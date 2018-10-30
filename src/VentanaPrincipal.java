@@ -1,3 +1,4 @@
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
@@ -5,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.security.acl.Group;
 
 import javax.swing.BorderFactory;
@@ -27,8 +29,7 @@ import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 /**
  * @author AlbertoConejeroHernandez
  * 
- * @version 1.0
- * {@link #inicializar()}
+ * @version 1.0 {@link #inicializar()}
  * @see #cambiaTemas()
  * @since Java 8
  * 
@@ -286,6 +287,7 @@ public class VentanaPrincipal {
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
+				
 			}
 		}
 		botonEmpezar.addActionListener((e) -> {
@@ -312,8 +314,10 @@ public class VentanaPrincipal {
 	 * correspondeciaColor): - 0 : negro - 1 : cyan - 2 : verde - 3 : naranja - 4 ó
 	 * más : rojo
 	 * 
-	 * @param i: posición vertical de la celda.
-	 * @param j: posición horizontal de la celda.
+	 * @param i:
+	 *            posición vertical de la celda.
+	 * @param j:
+	 *            posición horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i, int j) {
 		int numMinasAlrededor = juego.getMinasAlrededor(i, j);
@@ -333,9 +337,9 @@ public class VentanaPrincipal {
 	/**
 	 * Muestra una ventana que indica el fin del juego
 	 * 
-	 * @param porExplosion : Un booleano que indica si es final del juego porque ha
-	 *                     explotado una mina (true) o bien porque hemos desactivado
-	 *                     todas (false)
+	 * @param porExplosion
+	 *            : Un booleano que indica si es final del juego porque ha explotado
+	 *            una mina (true) o bien porque hemos desactivado todas (false)
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el
 	 *       juego.
 	 */
