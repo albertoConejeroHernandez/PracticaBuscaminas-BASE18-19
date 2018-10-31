@@ -31,7 +31,7 @@ import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
  * y funcionalidad de la ventana, editamos los campos que queremos para adpatarla
  * y ver el juego como queremos.
  * @author AlbertoConejeroHernandez
- * {@link #inicializar()}
+ * <p>Link:{@link #inicializar()}</p>
  * <p>
  * {@code
  * 		ventana.setVisible(true);
