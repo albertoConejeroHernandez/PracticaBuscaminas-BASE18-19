@@ -27,21 +27,26 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 /**
- * En esta clase tratamos los puntos iniciales de la ventana de juego, en la que controlamos los botones
- * y funcionalidad de la ventana, editamos los campos que queremos para adpatarla
- * y ver el juego como queremos.
+ * En esta clase tratamos los puntos iniciales de la ventana de juego, en la que
+ * controlamos los botones y funcionalidad de la ventana, editamos los campos
+ * que queremos para adpatarla y ver el juego como queremos.
+ * 
  * @author AlbertoConejeroHernandez
- * <p>Link:{@link #inicializar()}</p>
- * <p>
+ *         <p>
+ * 		Link:{@link inicializar}
+ *         </p>
+ * 
+ *         <pre>
  * {@code
  * 		ventana.setVisible(true);
 		inicializarComponentes();
 		inicializarListeners();
  * }
- *</p>
- *@since 1.0
- *@version 1.0
- *@see ControlJuego
+ *         </pre>
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @see ControlJuego
  *
  */
 public class VentanaPrincipal {
@@ -297,7 +302,7 @@ public class VentanaPrincipal {
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
-				
+
 			}
 		}
 		botonEmpezar.addActionListener((e) -> {
